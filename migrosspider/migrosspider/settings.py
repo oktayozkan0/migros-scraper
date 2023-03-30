@@ -4,9 +4,12 @@ SPIDER_MODULES = ["migrosspider.spiders"]
 NEWSPIDER_MODULE = "migrosspider.spiders"
 
 
-#USER_AGENT = "migrosspider (+http://www.yourdomain.com)"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 OPR/96.0.0.0"
 
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+
+# LOG_STDOUT = True
+# LOG_FILE = 'scrapy_output.txt'
 
 #CONCURRENT_REQUESTS = 32
 
@@ -17,10 +20,9 @@ ROBOTSTXT_OBEY = True
 
 #TELNETCONSOLE_ENABLED = False
 
-#DEFAULT_REQUEST_HEADERS = {
-#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-#    "Accept-Language": "en",
-#}
+DEFAULT_REQUEST_HEADERS = {
+   "Accept": "application/json",
+}
 
 #SPIDER_MIDDLEWARES = {
 #    "migrosspider.middlewares.MigrosspiderSpiderMiddleware": 543,
