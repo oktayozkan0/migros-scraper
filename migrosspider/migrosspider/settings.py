@@ -8,8 +8,8 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 ROBOTSTXT_OBEY = False
 
-# LOG_STDOUT = True
-# LOG_FILE = 'scrapy_output.txt'
+LOG_STDOUT = True
+LOG_FILE = 'scrapy_output.txt'
 
 #CONCURRENT_REQUESTS = 32
 

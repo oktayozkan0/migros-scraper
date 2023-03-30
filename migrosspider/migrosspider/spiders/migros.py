@@ -30,20 +30,12 @@ class MigrosSpider(scrapy.Spider):
         child_categories = self.child_extractor(categories)
 
         for category in child_categories:
-            yield scrapy.Request(f"https://www.migros.com.tr/rest/search/screens/{category}?sayfa=1", callback=self.paging_if_necessary)
-
-    def paging_if_necessary(self, response):
-        data = response.json()
-        self.parse(response=response)
-        page_count = data["data"]["searchInfo"]["pageCount"]
-
-        if page_count > 1:
-            for i in range(2, page_count+1):
-                category = data["data"]["searchInfo"]["categoryAggregations"][0]["prettyName"]
-                yield scrapy.Request(f"https://www.migros.com.tr/rest/search/screens/{category}?sayfa={i}", callback=self.parse)
+            yield scrapy.Request(f"https://www.migros.com.tr/rest/search/screens/{category}?sayfa=1", callback=self.parse)
 
     def parse(self, response):
         data = response.json()
+        page_count = data["data"]["searchInfo"]["pageCount"]
+
         for i in data["data"]["searchInfo"]["storeProductInfos"]:
             item = MigrosspiderItem()
             item["name"] = i["name"]
@@ -57,3 +49,8 @@ class MigrosSpider(scrapy.Spider):
             except:
                 item["crm_discount"] = None
             yield item
+
+        if page_count > 1:
+            for i in range(2, page_count+1):
+                category = data["data"]["searchInfo"]["categoryAggregations"][0]["prettyName"]
+                yield scrapy.Request(f"https://www.migros.com.tr/rest/search/screens/{category}?sayfa={i}", callback=self.parse)
